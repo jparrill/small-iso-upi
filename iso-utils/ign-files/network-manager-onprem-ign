@@ -1,0 +1,1 @@
+{"overwrite": true,"path": "/etc/NetworkManager/conf.d/99-onprem-cluster.conf","mode": 292,"user": {"name": "root"},"contents": { "source": "data:;base64,W21haW5dCnJjLW1hbmFnZXI9ZmlsZQpbY29ubmVjdGlvbl0KaXB2Ni5kaGNwLWR1aWQ9bGwKaXB2Ni5kaGNwLWlhaWQ9bWFjCltrZXlmaWxlXQp1bm1hbmFnZWQtZGV2aWNlcz1pbnRlcmZhY2UtbmFtZTplbnAzczBmMQo="}}
