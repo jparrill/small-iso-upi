@@ -65,7 +65,7 @@ EXTRA_ARGS="ip=[2620:52:0:1304::8]::[2620:52:0:1304::fe]:64:small-iso:enp3s0f0:n
 if [ -d ${BUILD_FOLDER} ]
 then
   echo "Cleaning build folder"
-  #rm -rf ${BUILD_FOLDER}
+  rm -rf ${BUILD_FOLDER}
 fi
 
 mkdir -p ${BUILD_FOLDER}
@@ -85,7 +85,7 @@ then
 fi
 
 generate_csv_ign "${SCRIPTPATH}/ipv6-inventory.csv"
-rm -rf /tmp/base.iso ${OUTPUT} /tmp/syslinux* /tmp/coreos ztp-iso-generator
+sudo rm -rf /tmp/base.iso ${OUTPUT} /tmp/syslinux* /tmp/coreos ztp-iso-generator
 sudo yum -y install git xorriso syslinux
 git clone https://github.com/redhat-ztp/ztp-iso-generator.git ${BUILD_FOLDER}/ztp-iso-generator
 cd ${BUILD_FOLDER}/ztp-iso-generator/rhcos-iso
