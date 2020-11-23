@@ -52,7 +52,6 @@ fi
 SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 export BUILD_FOLDER=${SCRIPTPATH}/build
 IP="[${IP_WS}]"
-WEBDIR="/var/www/html"
 ROOTFS="http://${IP}/rootfs.img"
 MCP="worker-cnf"
 IGNITION_FILE="http://${IP}/${MCP}-small.ign"
@@ -74,11 +73,9 @@ mkdir -p ${BUILD_FOLDER}
 if [ ! -f ${BUILD_FOLDER}/rootfs.img ]
 then
   echo "Downloading rootfs"
-  #curl -Lk https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/latest/rhcos-${OCP_VERSION}-x86_64-live-rootfs.x86_64.img -o ${WEBDIR}/rootfs.img
   curl -Lk https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/latest/rhcos-${OCP_VERSION}-x86_64-live-rootfs.x86_64.img -o ${BUILD_FOLDER}/rootfs.img
 fi
 
-# cp /root/ocp/worker.ign /var/www/html/worker.ign
 curl -H "Accept: application/vnd.coreos.ignition+json; version=3.1.0" -Lk https://${API_IP}:22623/config/${MCP} -o ${BUILD_FOLDER}/config.ign
 
 if [[ ! -f ${BUILD_FOLDER}/config.ign ]]
