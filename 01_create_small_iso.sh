@@ -57,7 +57,7 @@ MCP="worker-cnf"
 IGNITION_FILE="http://${IP}/${MCP}-small.ign"
 OUTPUT="${BUILD_FOLDER}/${MCP}-small.iso"
 BASE="/tmp/base.iso"
-OCP_VERSION="4.6.1"
+OCP_VERSION="4.6.3"
 
 # IP for booting the server and being able to reach the rootfs img"
 EXTRA_ARGS="ip=[2620:52:0:1304::8]::[2620:52:0:1304::fe]:64:small-iso:enp3s0f0:none nameserver=[2620:52:0:1304::1]"

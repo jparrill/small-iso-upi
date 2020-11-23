@@ -1,3 +1,9 @@
+2620:52:0:1302::5;18:db:f2:8c:d5:92;64;openshift-master-hub-0.mgmt-spoke2.e2e.bos.redhat.com;2620:52:0:1302::fe;e2e.bos.redhat.com;2620:52:0:1302::1
+2620:52:0:1302::6;18:db:f2:8c:d5:9f;64;openshift-master-hub-1.mgmt-spoke2.e2e.bos.redhat.com;2620:52:0:1302::fe;e2e.bos.redhat.com;2620:52:0:1302::1
+2620:52:0:1302::7;18:db:f2:8c:d5:ac;64;openshift-master-hub-2.mgmt-spoke2.e2e.bos.redhat.com;2620:52:0:1302::fe;e2e.bos.redhat.com;2620:52:0:1302::1
+2620:52:0:1303::5;a0:36:9f:6c:0a:38;64;openshift-master-spoke1-0.mgmt-spoke2.e2e.bos.redhat.com;2620:52:0:1303::fe;e2e.bos.redhat.com;2620:52:0:1303::1
+2620:52:0:1303::6;a0:36:9f:6c:0c:10;64;openshift-master-spoke1-1.mgmt-spoke2.e2e.bos.redhat.com;2620:52:0:1303::fe;e2e.bos.redhat.com;2620:52:0:1303::1
+2620:52:0:1303::7;a0:36:9f:6c:0d:c0;64;openshift-master-spoke1-2.mgmt-spoke2.e2e.bos.redhat.com;2620:52:0:1303::fe;e2e.bos.redhat.com;2620:52:0:1303::1
 2620:52:0:1304::5;a0:36:9f:d3:eb:ac;64;openshift-master-spoke2-0.mgmt-spoke2.e2e.bos.redhat.com;2620:52:0:1304::fe;e2e.bos.redhat.com;2620:52:0:1304::1
 2620:52:0:1304::6;a0:36:9f:d3:ec:0c;64;openshift-master-spoke2-1.mgmt-spoke2.e2e.bos.redhat.com;2620:52:0:1304::fe;e2e.bos.redhat.com;2620:52:0:1304::1
 2620:52:0:1304::7;a0:36:9f:d3:ec:b4;64;openshift-master-spoke2-2.mgmt-spoke2.e2e.bos.redhat.com;2620:52:0:1304::fe;e2e.bos.redhat.com;2620:52:0:1304::1
