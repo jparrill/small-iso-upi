@@ -1,5 +1,15 @@
 #!/bin/bash
 
+function validate_sha256() {
+        INPUT_FILE=${1}
+        echo "Getting SHA256SUM File"
+        curl -Lk https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/latest/sha256sum.txt -o ${BUILD_FOLDER}/sha256_rhcos.txt
+        SHA256_INPUTFILE=$(sha256sum ${INPUT_FILE})
+        SHA256_CHECK=$(cat ${BUILD_FOLDER}/sha256_rhcos.txt | grep -m1 $(basename ${INPUT_FILE%.*}))
+        echo "Local file: ${SHA256_INPUTFILE}"
+        echo "Remote file: ${SHA256_CHECK}"
+}
+
 function generate_csv_ign() {
     CSV_FILE=${1}
     CSV_DEST=/var/tmp/AI_STATIC_INV
@@ -76,6 +86,7 @@ if [ ! -f ${WS_PATH}/rootfs.img ]
 then
   echo "Downloading rootfs"
   curl -Lk https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/latest/rhcos-${OCP_VERSION}-x86_64-live-rootfs.x86_64.img -o ${BUILD_FOLDER}/rootfs.img
+  validate_sha256 ${BUILD_FOLDER}/rootfs.img
 fi
 
 curl -H "Accept: application/vnd.coreos.ignition+json; version=3.1.0" -Lk https://${API_IP}:22623/config/${MCP} -o ${BUILD_FOLDER}/config.ign
