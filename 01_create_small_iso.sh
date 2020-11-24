@@ -8,6 +8,11 @@ function validate_sha256() {
         SHA256_CHECK=$(cat ${BUILD_FOLDER}/sha256_rhcos.txt | grep -m1 $(basename ${INPUT_FILE%.*}))
         echo "Local file: ${SHA256_INPUTFILE}"
         echo "Remote file: ${SHA256_CHECK}"
+        if [[ "0$(echo ${SHA256_INPUTFILE} | awk '{print $1}')" != "0$(echo ${SHA256_CHECK} | awk '{print $1}')" ]]
+        then
+          echo "SHA256 Sums do not match, aborting execution"
+          exit 1
+        fi
 }
 
 function generate_csv_ign() {
@@ -61,7 +66,7 @@ IGNITION_FILE="http://${IP}/${MCP}-small.ign"
 OUTPUT="${BUILD_FOLDER}/${MCP}-small.iso"
 BASE="/tmp/base.iso"
 OCP_VERSION="4.6.1"
-WS_PATH=/var/www/html/
+WS_PATH=/var/www/html
 
 # IP for booting the server and being able to reach the rootfs img"
 EXTRA_ARGS="ip=[2620:52:0:1304::8]::[2620:52:0:1304::fe]:64:small-iso:enp3s0f0:none nameserver=[2620:52:0:1304::1]"
@@ -87,6 +92,9 @@ then
   echo "Downloading rootfs"
   curl -Lk https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/latest/rhcos-${OCP_VERSION}-x86_64-live-rootfs.x86_64.img -o ${BUILD_FOLDER}/rootfs.img
   validate_sha256 ${BUILD_FOLDER}/rootfs.img
+else
+  echo "Checking rootfs"
+  validate_sha256 ${WS_PATH}/rootfs.img
 fi
 
 curl -H "Accept: application/vnd.coreos.ignition+json; version=3.1.0" -Lk https://${API_IP}:22623/config/${MCP} -o ${BUILD_FOLDER}/config.ign

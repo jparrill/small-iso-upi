@@ -5,8 +5,10 @@ WEBSERVER ?= [2620:52:0:1304::1]
 BMC_USER ?= aW3s0m3U53R
 BMC_PASS ?= aW3s0m3P4SS
 ISO ?= worker-cnf-small.iso
-WS_PATH ?= /var/www/html/
+WS_PATH ?= /var/www/html
 MCP ?= worker-cnf
+ROOT_FOLDER := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+BUILD_FOLDER ?= ${ROOT_FOLDER}/build
 
 .EXPORT_ALL_VARIABLES:
 
@@ -17,7 +19,8 @@ all: recreate sleep server_action sleep remount
 recreate:
 	bash ./01_create_small_iso.sh ${API_EP} ${WEBSERVER}
 	cd iso-utils; bash ./02_patch_small_iso.sh
-	sudo cp -r ${BUILD_FOLDER}/{${ISO},rootfs.img} ${WS_PATH}/
+	sudo cp -r ${BUILD_FOLDER}/${ISO} ${WS_PATH}/${ISO}
+	[[ ! -f ${BUILD_FOLDER}/rootfs.img ]] || sudo cp -r ${BUILD_FOLDER}/rootfs.img ${WS_PATH}/rootfs.img
 	sudo cp -r ${BUILD_FOLDER}/${MCP}-small.ign ${WS_PATH}/${MCP}-small.ign
 
 remount:
