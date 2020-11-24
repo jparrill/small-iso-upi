@@ -16,6 +16,8 @@ all: recreate sleep server_action sleep remount
 recreate:
 	bash ./01_create_small_iso.sh ${API_EP} ${WEBSERVER}
 	cd iso-utils; bash ./02_patch_small_iso.sh
+	sudo cp -r ${BUILD_FOLDER}/{${ISO},rootfs.img} ${WS_PATH}/
+	sudo cp -r ${BUILD_FOLDER}/${MCP}-small.ign ${WS_PATH}/${MCP}-small.ign
 
 remount:
 	sudo podman run --net=host idracbootfromiso -r ${DEST_SERVER} -u ${BMC_USER} -p ${BMC_PASS} -i http://${WEBSERVER}/${ISO} -d

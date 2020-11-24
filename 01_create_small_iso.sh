@@ -18,12 +18,6 @@ EOF
     echo "Ignition file generated at ${IGN_FILE}"
 }
 
-function move_artifacts() {
-    echo "Moving from ${BUILD_FOLDER} to ${WS_PATH}"
-    sudo cp -r ${BUILD_FOLDER}/{${ISO},rootfs.img} ${WS_PATH}/
-    sudo cp -r ${BUILD_FOLDER}/${MCP}-small.ign ${WS_PATH}/${MCP}-small.ign
-}
-
 function report() {
     echo "----------------------"
     echo "The generated files that you will need to host are the following: "
@@ -99,5 +93,4 @@ git clone https://github.com/redhat-ztp/ztp-iso-generator.git ${BUILD_FOLDER}/zt
 cd ${BUILD_FOLDER}/ztp-iso-generator/rhcos-iso
 sudo -E ./generate_rhcos_iso.sh ${BASE}
 sudo -E ./inject_config_files.sh ${BASE} ${OUTPUT} ${IGNITION_FILE} ${ROOTFS} "${EXTRA_ARGS}"
-move_artifacts
 report
