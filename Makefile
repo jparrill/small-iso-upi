@@ -6,6 +6,7 @@ BMC_USER ?= aW3s0m3U53R
 BMC_PASS ?= aW3s0m3P4SS
 ISO ?= worker-cnf-small.iso
 WS_PATH ?= /var/www/html/
+MCP ?= worker-cnf
 
 .EXPORT_ALL_VARIABLES:
 
