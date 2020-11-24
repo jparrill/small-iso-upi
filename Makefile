@@ -11,7 +11,7 @@ WS_PATH ?= /var/www/html/
 
 default: recreate
 
-all: recreate sleep server_action move_artifacts sleep remount
+all: recreate sleep server_action sleep remount
 
 recreate:
 	bash ./01_create_small_iso.sh ${API_EP} ${WEBSERVER}
