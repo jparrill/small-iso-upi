@@ -8,3 +8,7 @@
    API_EP=api.cluster.example.com WEBSERVER="[2620:52:0:1304::1]" make recreate
    ~~~
 4. Move the artifacts on the build folder to the root of your webserver
+
+   ~~~sh
+   WS_PATH=/var/www/html make move_artifacts
+   ~~~

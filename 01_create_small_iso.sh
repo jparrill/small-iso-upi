@@ -45,7 +45,7 @@ API_IP="${1}"
 
 if [[ -z ${API_IP} ]]
 then
-  echo "You need to pass the API DNS record as parameter. e.g: $0 api.cluster.example.com 2620:52:0:1304::5"
+  echo "You need to pass the API DNS record as parameter. e.g: $0 api.cluster.example.com 2620:52:0:1304::5 /var/www/html"
   exit 1
 fi
 
@@ -53,9 +53,17 @@ IP_WS="${2}"
 
 if [[ -z ${IP_WS} ]]
 then
-  echo "You need to provide the IPv6 for your web server hosting the ignition configs and rootfs. e.g: $0 api.cluster.example.com 2620:52:0:1304::5"
+  echo "You need to provide the IPv6 for your web server hosting the ignition configs and rootfs. e.g: $0 api.cluster.example.com 2620:52:0:1304::5 /var/www/html"
   exit 1
 fi 
+
+WS_PATH="${3}"
+
+if [[ -z ${WS_PATH} ]]
+then
+  echo "You need to provide the path for your web server. e.g: $0 api.cluster.example.com 2620:52:0:1304::5 /var/www/html"
+  exit 1
+fi
 
 SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 export BUILD_FOLDER=${SCRIPTPATH}/build
@@ -66,7 +74,6 @@ IGNITION_FILE="http://${IP}/${MCP}-small.ign"
 OUTPUT="${BUILD_FOLDER}/${MCP}-small.iso"
 BASE="/tmp/base.iso"
 OCP_VERSION="4.6.1"
-WS_PATH=/var/www/html
 
 # IP for booting the server and being able to reach the rootfs img"
 EXTRA_ARGS="ip=[2620:52:0:1304::8]::[2620:52:0:1304::fe]:64:small-iso:enp3s0f0:none nameserver=[2620:52:0:1304::1]"
@@ -81,7 +88,6 @@ if [ -d ${WS_PATH} ]
 then
   echo "Cleaning WS folder"
   sudo rm -rf ${WS_PATH}/worker-cnf-small.iso
-  #sudo rm -rf ${WS_PATH}/rootfs.img
   sudo rm -rf ${WS_PATH}/config.ign
 fi
 

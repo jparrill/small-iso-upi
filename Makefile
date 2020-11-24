@@ -14,11 +14,13 @@ BUILD_FOLDER ?= ${ROOT_FOLDER}/build
 
 default: recreate
 
-all: recreate sleep server_action sleep remount
+all: recreate move_artifacts sleep server_action sleep remount
 
 recreate:
-	bash ./01_create_small_iso.sh ${API_EP} ${WEBSERVER}
+	bash ./01_create_small_iso.sh ${API_EP} ${WEBSERVER} ${WS_PATH}
 	cd iso-utils; bash ./02_patch_small_iso.sh
+
+move_artifacts:
 	sudo cp -r ${BUILD_FOLDER}/${ISO} ${WS_PATH}/${ISO}
 	[[ ! -f ${BUILD_FOLDER}/rootfs.img ]] || sudo cp -r ${BUILD_FOLDER}/rootfs.img ${WS_PATH}/rootfs.img
 	sudo cp -r ${BUILD_FOLDER}/${MCP}-small.ign ${WS_PATH}/${MCP}-small.ign
