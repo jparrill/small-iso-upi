@@ -21,7 +21,7 @@ EOF
 function move_artifacts() {
     echo "Moving from ${BUILD_FOLDER} to ${WS_PATH}"
     sudo cp -r ${BUILD_FOLDER}/{${ISO},rootfs.img} ${WS_PATH}/
-    sudo cp -r ${BUILD_FOLDER}/config.ign ${WS_PATH}/${MCP}-small.ign
+    sudo cp -r ${BUILD_FOLDER}/${MCP}-small.ign ${WS_PATH}/${MCP}-small.ign
 }
 
 function report() {
@@ -73,7 +73,7 @@ then
   echo "Cleaning WS folder"
   sudo rm -rf ${WS_PATH}/worker-cnf-small.iso
   #sudo rm -rf ${WS_PATH}/rootfs.img
-  sudo rm -rf ${WS_PATH}/config.img
+  sudo rm -rf ${WS_PATH}/config.ign
 fi
 
 mkdir -p ${BUILD_FOLDER}

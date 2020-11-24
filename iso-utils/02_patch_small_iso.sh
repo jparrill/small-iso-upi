@@ -6,7 +6,7 @@ IGNITION_FILE="${MCP}-small.ign"
 if [[ -z ${BUILD_FOLDER} ]]
 then
     SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-    BUILD_FOLDER=${SCRIPTPATH}/..
+    BUILD_FOLDER=${SCRIPTPATH}/../build
 fi
 
 python3 create_iso_ignition.py
