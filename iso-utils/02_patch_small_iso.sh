@@ -1,6 +1,13 @@
 #!/bin/bash 
 
-MCP="worker-cnf"
+MCP="${1}"
+
+if [[ -z ${MCP} ]]
+then
+  echo "You need to provide the Machine Config Pool to be attached to the ISO. e.g: $0 worker-cnf"
+  exit 1
+fi
+
 IGNITION_FILE="${MCP}-small.ign"
 
 if [[ -z ${BUILD_FOLDER} ]]

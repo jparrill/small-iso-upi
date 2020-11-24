@@ -1,0 +1,5 @@
+export API_EP=api.mgmt-hub.e2e.bos.redhat.com
+export WEBSERVER="[2620:52:0:1304::1]:80"
+export WS_PATH=/var/www/html
+export MCP=worker-cnf
+export EXTRA_ARGS="ip=[2620:52:0:1304::8]::[2620:52:0:1304::fe]:64:small-iso:enp3s0f0:none nameserver=[2620:52:0:1304::1]"
