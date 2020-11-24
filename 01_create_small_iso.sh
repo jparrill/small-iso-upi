@@ -18,6 +18,11 @@ EOF
     echo "Ignition file generated at ${IGN_FILE}"
 }
 
+function move_artifacts() {
+    echo "Moving from ${BUILD_FOLDER} to ${WS_PATH}"
+    sudo cp -r ${BUILD_FOLDER}/{${ISO},rootfs.img} ${WS_PATH}/
+    sudo cp -r ${BUILD_FOLDER}/config.ign ${WS_PATH}/${MCP}-small.ign
+}
 
 function report() {
     echo "----------------------"
@@ -26,12 +31,6 @@ function report() {
     echo "IGN: ${IGNITION_FILE}"
     echo "ROOTFS: ${ROOTFS}"
 }
-
-#if [[ $(id -u) -ne 0 ]]
-#then
-#  echo "This script must be run as root"
-#  exit 1
-#fi
 
 API_IP="${1}"
 
@@ -51,13 +50,14 @@ fi
 
 SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 export BUILD_FOLDER=${SCRIPTPATH}/build
-IP="[${IP_WS}]"
+IP="${IP_WS}"
 ROOTFS="http://${IP}/rootfs.img"
 MCP="worker-cnf"
 IGNITION_FILE="http://${IP}/${MCP}-small.ign"
 OUTPUT="${BUILD_FOLDER}/${MCP}-small.iso"
 BASE="/tmp/base.iso"
-OCP_VERSION="4.6.3"
+OCP_VERSION="4.6.1"
+WS_PATH=/var/www/html/
 
 # IP for booting the server and being able to reach the rootfs img"
 EXTRA_ARGS="ip=[2620:52:0:1304::8]::[2620:52:0:1304::fe]:64:small-iso:enp3s0f0:none nameserver=[2620:52:0:1304::1]"
@@ -68,9 +68,17 @@ then
   rm -rf ${BUILD_FOLDER}
 fi
 
+if [ -d ${WS_PATH} ]
+then
+  echo "Cleaning WS folder"
+  sudo rm -rf ${WS_PATH}/worker-cnf-small.iso
+  #sudo rm -rf ${WS_PATH}/rootfs.img
+  sudo rm -rf ${WS_PATH}/config.img
+fi
+
 mkdir -p ${BUILD_FOLDER}
 
-if [ ! -f ${BUILD_FOLDER}/rootfs.img ]
+if [ ! -f ${WS_PATH}/rootfs.img ]
 then
   echo "Downloading rootfs"
   curl -Lk https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/latest/rhcos-${OCP_VERSION}-x86_64-live-rootfs.x86_64.img -o ${BUILD_FOLDER}/rootfs.img
@@ -91,5 +99,5 @@ git clone https://github.com/redhat-ztp/ztp-iso-generator.git ${BUILD_FOLDER}/zt
 cd ${BUILD_FOLDER}/ztp-iso-generator/rhcos-iso
 sudo -E ./generate_rhcos_iso.sh ${BASE}
 sudo -E ./inject_config_files.sh ${BASE} ${OUTPUT} ${IGNITION_FILE} ${ROOTFS} "${EXTRA_ARGS}"
-
+move_artifacts
 report

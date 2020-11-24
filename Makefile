@@ -1,7 +1,7 @@
 DEST_SERVER ?= 10.19.0.88
 ACTION ?= off
 API_EP ?= api.mgmt-hub.e2e.bos.redhat.com
-WEBSERVER ?= 2620:52:0:1304::1
+WEBSERVER ?= [2620:52:0:1304::1]
 BMC_USER ?= aW3s0m3U53R
 BMC_PASS ?= aW3s0m3P4SS
 ISO ?= worker-cnf-small.iso
@@ -9,13 +9,9 @@ WS_PATH ?= /var/www/html/
 
 .EXPORT_ALL_VARIABLES:
 
-
 default: recreate
 
 all: recreate sleep server_action move_artifacts sleep remount
-
-move_artifacts:
-	cp build/{${ISO},rootfs.img,config.ign} ${WS_PATH}
 
 recreate:
 	bash ./01_create_small_iso.sh ${API_EP} ${WEBSERVER}
