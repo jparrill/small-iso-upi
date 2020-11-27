@@ -99,7 +99,7 @@ fi
 if [ -d ${WS_PATH} ]
 then
   echo "Cleaning WS folder"
-  sudo rm -rf ${WS_PATH}/worker-cnf-small.iso
+  sudo rm -rf ${WS_PATH}/${MCP}-small.iso
   sudo rm -rf ${WS_PATH}/config.ign
 fi
 
